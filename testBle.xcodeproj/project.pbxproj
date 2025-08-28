@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D4A284EC2D09676F00959A17 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D4A284EB2D09676F00959A17 /* Localizable.xcstrings */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		D430B8F32CE35DE800C7DE91 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,21 +31,48 @@
 		D430B8E22CE35DE600C7DE91 /* testBle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testBle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D430B8F22CE35DE800C7DE91 /* testBleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = testBleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D430B8FC2CE35DE800C7DE91 /* testBleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = testBleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4A284EB2D09676F00959A17 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D4556ED02CF0278F009E6DAF /* Exceptions for "testBleUITests" folder in "testBleTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				testBleTests/testBleTests.swift,
+			);
+			target = D430B8F12CE35DE800C7DE91 /* testBleTests */;
+		};
+		D4556ED12CF0278F009E6DAF /* Exceptions for "testBleUITests" folder in "testBleUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				testBleTests/testBleTests.swift,
+			);
+			target = D430B8FB2CE35DE800C7DE91 /* testBleUITests */;
+		};
+		D4A284EA2D09659E00959A17 /* Exceptions for "testBle" folder in "testBle" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D430B8E12CE35DE600C7DE91 /* testBle */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D430B8E42CE35DE600C7DE91 /* testBle */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D4A284EA2D09659E00959A17 /* Exceptions for "testBle" folder in "testBle" target */,
+			);
 			path = testBle;
-			sourceTree = "<group>";
-		};
-		D430B8F52CE35DE800C7DE91 /* testBleTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = testBleTests;
 			sourceTree = "<group>";
 		};
 		D430B8FF2CE35DE800C7DE91 /* testBleUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D4556ED02CF0278F009E6DAF /* Exceptions for "testBleUITests" folder in "testBleTests" target */,
+				D4556ED12CF0278F009E6DAF /* Exceptions for "testBleUITests" folder in "testBleUITests" target */,
+			);
 			path = testBleUITests;
 			sourceTree = "<group>";
 		};
@@ -75,8 +106,8 @@
 		D430B8D92CE35DE600C7DE91 = {
 			isa = PBXGroup;
 			children = (
+				D4A284EB2D09676F00959A17 /* Localizable.xcstrings */,
 				D430B8E42CE35DE600C7DE91 /* testBle */,
-				D430B8F52CE35DE800C7DE91 /* testBleTests */,
 				D430B8FF2CE35DE800C7DE91 /* testBleUITests */,
 				D430B8E32CE35DE600C7DE91 /* Products */,
 			);
@@ -129,9 +160,6 @@
 			);
 			dependencies = (
 				D430B8F42CE35DE800C7DE91 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				D430B8F52CE35DE800C7DE91 /* testBleTests */,
 			);
 			name = testBleTests;
 			packageProductDependencies = (
@@ -192,6 +220,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = D430B8D92CE35DE600C7DE91;
 			minimizedProjectReferenceProxies = 1;
@@ -212,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4A284EC2D09676F00959A17 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +358,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -384,6 +415,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -396,13 +428,19 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"testBle/Preview Content\"";
+				DEVELOPMENT_TEAM = FA4252U52N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = testBle/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Metal Detector";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "他デバイスとのメッセージでBluetoothを使用します。";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetoothでデバイスと接続する為に使用します。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -424,13 +462,19 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"testBle/Preview Content\"";
+				DEVELOPMENT_TEAM = FA4252U52N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = testBle/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Metal Detector";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "他デバイスとのメッセージでBluetoothを使用します。";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "Bluetoothでデバイスと接続する為に使用します。";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

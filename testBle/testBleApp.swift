@@ -12,6 +12,7 @@ struct testBleApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(CoreBluetoothViewModel())
         }
     }
 }

@@ -19,6 +19,7 @@ class CoreBluetoothViewModel: NSObject, ObservableObject, CBPeripheralProtocolDe
     
     @Published var threshold : Double = 0
     @Published var holdTime  : UInt32 = 0
+    @Published var delayTime : UInt32 = 0
     @Published var noneTime  : UInt32 = 0
     @Published var name      : String = ""
     @Published var rms       : String = "0"
@@ -32,7 +33,14 @@ class CoreBluetoothViewModel: NSObject, ObservableObject, CBPeripheralProtocolDe
     @Published var rmsAveAll : String = "0"
     @Published var fileURL   : URL? = nil
     @Published var fileName  : String? = nil
+    
+    @Published var isholding : Bool = false
+    
+    @Published var detectContact : String = ""
+    @Published var errorContact  : String = ""
 
+    @Published var vCount : Int = 0
+    
     var p_refresh : Bool = true
     var txCharacteristic: CBCharacteristic! = nil
     
@@ -59,6 +67,7 @@ class CoreBluetoothViewModel: NSObject, ObservableObject, CBPeripheralProtocolDe
     func clearText(){
         threshold = 0
         holdTime  = 0
+        delayTime = 0
         noneTime  = 0
         name      = ""
         rms       = "0"
@@ -70,6 +79,9 @@ class CoreBluetoothViewModel: NSObject, ObservableObject, CBPeripheralProtocolDe
         werror     = ""
         fw_ver    = ""
         rmsAveAll = "0"
+       
+        detectContact = ""
+        errorContact  = ""
 }
     
     private func resetConfigure() {
@@ -294,11 +306,26 @@ class CoreBluetoothViewModel: NSObject, ObservableObject, CBPeripheralProtocolDe
         var iwerror   : UInt32? = nil
         var ifw_ver   : UInt32? = nil
         var irmsAveAll: UInt32? = nil
+        var iisholding: UInt32? = nil
+        var isetten   : UInt32? = nil
+        var idelaytime: UInt32? = nil
+        
+        vCount = characteristicValue.count
+        
         if characteristicValue.count >= 84 {
             iwerror    = Data(characteristicValue[72...75]).withUnsafeBytes{$0.load(as: UInt32.self)}
             ifw_ver    = Data(characteristicValue[76...79]).withUnsafeBytes{$0.load(as: UInt32.self)}
             irmsAveAll = Data(characteristicValue[80...83]).withUnsafeBytes{$0.load(as: UInt32.self)}
         }
+        if characteristicValue.count >= 92 {
+            iisholding = Data(characteristicValue[84...87]).withUnsafeBytes{$0.load(as: UInt32.self)}
+            isetten    = Data(characteristicValue[88...91]).withUnsafeBytes{$0.load(as: UInt32.self)}
+        }
+        
+        if characteristicValue.count >= 96 {
+            idelaytime = Data(characteristicValue[92...95]).withUnsafeBytes{$0.load(as: UInt32.self)}
+        }
+
         
         
         rms       = String(round(ad2v(ad: irms      )*10.0)/10.0)
@@ -325,7 +352,23 @@ class CoreBluetoothViewModel: NSObject, ObservableObject, CBPeripheralProtocolDe
         }else{
             rmsAveAll = "0"
         }
- 
+        
+        
+        if let value = iisholding {
+            if value == 1 {
+                isholding = true
+            }else{
+                isholding = false
+            }
+        }else{
+            isholding = false
+        }
+        
+        
+        // iisholding = 0
+        // isetten = 0
+        // idelaytime = 0
+
         if p_refresh ||
             threshold_old != ithreshold ||
             holdTime_old  != iholdTime  ||
@@ -334,12 +377,36 @@ class CoreBluetoothViewModel: NSObject, ObservableObject, CBPeripheralProtocolDe
         {
             threshold = round(ad2v(ad: ithreshold)*10.0)/10.0
             holdTime  = iholdTime
+            if let value = idelaytime {
+               delayTime = value
+            }else{
+               delayTime = 0
+            }
             noneTime  = inoneTime
             name      = iname!
             threshold_old = ithreshold
             holdTime_old  = iholdTime
             noneTime_old  = inoneTime
             name_old      = iname!
+            
+            
+            if let value = isetten {
+                if (value&1) != 0{
+                    detectContact = "Normally Close"
+                }else{
+                    detectContact = "Normally Open"
+                }
+                if (value&2) != 0{
+                    errorContact = "Normally Close"
+                }else{
+                    errorContact = "Normally Open"
+                }
+
+            }else{
+                detectContact = ""
+                errorContact = ""
+            }
+            
             p_refresh = false
         }
         
@@ -380,6 +447,14 @@ class CoreBluetoothViewModel: NSObject, ObservableObject, CBPeripheralProtocolDe
         }
     }
     
+    func write_command_reset_detection(){
+        var aaa: UInt32 = 3
+        let data = Data(bytes: &aaa,count:MemoryLayout.size(ofValue: aaa))
+        if txCharacteristic != nil {
+            connectedPeripheral.peripheral.writeValue(data, for: txCharacteristic!, type: .withResponse)
+        }
+    }
+
     func write_command_parameter(){
         var aaa: UInt32 = 1
         let name_ = Data("test".utf8)

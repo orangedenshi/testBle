@@ -12,15 +12,16 @@ import Foundation
 struct ContentView: View {
     @EnvironmentObject var bleManager: CoreBluetoothViewModel
     
-    @State var threshold:String = ""
-    @State var holdtime :String = ""
-    @State var nonetime :String = ""
-    @State var rms      :String = "0"
-    @State var rmsave   :String = "0"
-    @State var max      :String = "0"
-    @State var maxall   :String = "0"
-    @State var maxdet   :String = "0"
-    @State var detcnt   :String = "0"
+    @State var threshold    :String = ""
+    @State var holdtime     :String = ""
+    @State var delaytime    :String = ""
+    @State var nonetime     :String = ""
+    @State var rms          :String = "0"
+    @State var rmsave       :String = "0"
+    @State var max          :String = "0"
+    @State var maxall       :String = "0"
+    @State var maxdet       :String = "0"
+    @State var detcnt       :String = "0"
     @State var isShowDialog :Bool = false
     @State var isShowAlert  :Bool = false
     @State var isShowAbout  :Bool = false
@@ -45,7 +46,7 @@ struct ContentView: View {
                 }
                 .confirmationDialog("Metal Detector Controller", isPresented: $isShowAbout, titleVisibility: .visible) {
                 } message: {
-                    Text("App Version: \(getAppVersion())")
+                    Text("App Version: \(getAppVersion())\nBuidVersion: \(getBuildVersion())")
                 }
                 Spacer()
             }
@@ -121,11 +122,46 @@ struct ContentView: View {
                         .gridColumnAlignment(.leading)
                 }
                 GridRow{
+                    Text("")
+                    Text("*10,000 = Infinite Hold")
+                        .frame(maxWidth:.infinity,alignment: .trailing)
+                        // .multilineTextAlignment(.trailing)
+                        // .gridColumnAlignment(.trailing)
+                    Text("")
+                        .gridColumnAlignment(.leading)
+                }
+                GridRow{
+                    Text(NSLocalizedString("Detect Signal Delay Time",comment: ""))
+                    TextField("",value:$bleManager.delayTime ,format: .number)
+                        .multilineTextAlignment(.trailing)
+                        // .gridColumnAlignment(.trailing)
+                    Text("ms")
+                        .gridColumnAlignment(.leading)
+                }
+                GridRow{
                     Text(NSLocalizedString("No Detect Time",comment: ""))
                     TextField("",value:$bleManager.noneTime ,format: .number)
                         .multilineTextAlignment(.trailing)
                         // .gridColumnAlignment(.trailing)
                     Text("s")
+                        .gridColumnAlignment(.leading)
+                }
+                GridRow{
+                    Text(NSLocalizedString("Detect Contact",comment: ""))
+                    // Text(NSLocalizedString(bleManager.detectContact,comment: "")).gridColumnAlignment(.leading)
+                    Text(NSLocalizedString(bleManager.detectContact,comment: ""))
+                        // .multilineTextAlignment(.trailing)
+                        .frame(maxWidth:.infinity,alignment: .trailing)
+                    Text("")
+                        .gridColumnAlignment(.leading)
+                }
+                GridRow{
+                    Text(NSLocalizedString("Error Contact",comment: ""))
+                    // Text(NSLocalizedString(bleManager.errorContact,comment:"")).gridColumnAlignment(.leading)
+                    //     .multilineTextAlignment(.trailing)
+                    Text(NSLocalizedString(bleManager.errorContact,comment:""))
+                        .frame(maxWidth:.infinity,alignment: .trailing)
+                    Text("")
                         .gridColumnAlignment(.leading)
                 }
             }
@@ -175,6 +211,7 @@ struct ContentView: View {
                     Text(bleManager.maxAll)
                     Text(bleManager.maxDet)
                     Text(bleManager.count)
+                    // Text(String(bleManager.vCount))
                 }
                 VStack(alignment: .leading ){
                     Text("mV")
@@ -188,6 +225,23 @@ struct ContentView: View {
                 
             }
             HStack{
+                // Button(action:{
+                //     let th = bleManager.v2ad(v: bleManager.threshold)
+                //     if th<0 || th>8000 {return}
+                //     if bleManager.holdTime<0 || bleManager.holdTime>10000 {return}
+                //     if bleManager.noneTime<0 || bleManager.noneTime>1000  {return}
+                //     bleManager.write_command_parameter()
+                // })
+                Button(action:{bleManager.write_command_reset_detection()})
+                {
+                    Text(NSLocalizedString("Reset Detection",comment:""))
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                }
+                .disabled(!bleManager.isholding)
+                .opacity ( bleManager.isholding ? 1.0 : 0.5)
+                
                 Spacer()
                 Button(action:{bleManager.write_command_reset()})
                 {
@@ -224,7 +278,11 @@ struct ContentView: View {
     func getAppVersion() -> String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
         return version
-        // return String(describing: type(of: version))
+    }
+
+    func getBuildVersion() -> String {
+        let version = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "N/A"
+        return version
     }
 
 }

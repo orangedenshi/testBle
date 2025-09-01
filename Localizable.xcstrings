@@ -4,12 +4,33 @@
     "" : {
 
     },
+    "*10,000 = Infinite Hold" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "*10,000 = 永久保持"
+          }
+        }
+      }
+    },
     "App Version: %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "App Version: %@"
+          }
+        }
+      }
+    },
+    "App Version: %@\nBuidVersion: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "App Version: %1$@\nBuidVersion: %2$@"
           }
         }
       }
@@ -44,6 +65,16 @@
         }
       }
     },
+    "Detect Contact" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検出接点"
+          }
+        }
+      }
+    },
     "Detect Count" : {
       "localizations" : {
         "ja" : {
@@ -54,12 +85,23 @@
         }
       }
     },
+    "Detect Signal Delay Time" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検出遅延時間"
+          }
+        }
+      }
+    },
     "Detect Signal Hold Time" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "排出保持時間"
+            "value" : "検出保持時間"
           }
         }
       }
@@ -70,6 +112,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "切断"
+          }
+        }
+      }
+    },
+    "Error Contact" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "エラー接点"
           }
         }
       }
@@ -93,6 +146,12 @@
           }
         }
       }
+    },
+    "Key" : {
+      "extractionState" : "manual"
+    },
+    "Key 1" : {
+      "extractionState" : "manual"
     },
     "Max" : {
       "localizations" : {
@@ -185,6 +244,28 @@
         }
       }
     },
+    "Normally Close" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "B接点"
+          }
+        }
+      }
+    },
+    "Normally Open" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A接点"
+          }
+        }
+      }
+    },
     "OK" : {
       "localizations" : {
         "ja" : {
@@ -201,6 +282,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "再読み込み"
+          }
+        }
+      }
+    },
+    "Reset Detection" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検出リセット"
           }
         }
       }

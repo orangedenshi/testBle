@@ -342,7 +342,8 @@ class CoreBluetoothViewModel: NSObject, ObservableObject, CBPeripheralProtocolDe
         if let value = ifw_ver {
             let major = value/256
             let minor = value%256
-            fw_ver = String(format:"%02d.%02d",major,minor)
+            // fw_ver = String(format:"%02d.%02d",major,minor)
+            fw_ver = String(format:"%d.%d",major,minor)
         }else{
             fw_ver    = ""
         }
